@@ -347,16 +347,6 @@ npm run build
 npm start
 ```
 
-### **Variables de Entorno - Producción**
-```env
-NODE_ENV=production
-PORT=3000
-MONGODB_URI=mongodb+srv://user:pass@cluster.mongodb.net/todoapp
-CORS_ORIGIN=https://mi-app.com
-JWT_SECRET=super-secreto-produccion-256-bits
-JWT_EXPIRES_IN=7d
-```
-
 ### **Docker Support**
 ```dockerfile
 FROM node:18-alpine
