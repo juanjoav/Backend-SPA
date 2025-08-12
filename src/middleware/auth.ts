@@ -31,7 +31,7 @@ export const authenticateToken = (req: IAuthenticatedRequest, res: Response, nex
     // Verificar y decodificar el token
     const secret = process.env.JWT_SECRET || 'fallback-secret-key';
     
-    jwt.verify(token, secret, (error, decoded) => {
+    jwt.verify(token, secret, (error: any, decoded: any) => {
       if (error) {
         let errorMessage = 'Token inválido';
         
@@ -93,7 +93,7 @@ export const optionalAuth = (req: IAuthenticatedRequest, res: Response, next: Ne
 
     const secret = process.env.JWT_SECRET || 'fallback-secret-key';
     
-    jwt.verify(token, secret, (error, decoded) => {
+    jwt.verify(token, secret, (error: any, decoded: any) => {
       if (!error && decoded) {
         // Token válido: agregar usuario al request
         req.user = decoded as IJWTPayload;

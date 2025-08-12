@@ -1,5 +1,5 @@
 /**
- * Tipos y interfaces principales para la aplicación To-Do
+ * Tipos y interfaces principales para la aplicación To-Do (Backend)
  */
 
 import { Document } from 'mongoose';
@@ -140,6 +140,7 @@ export interface IUser {
  */
 export interface IUserMethods {
   comparePassword(candidatePassword: string): Promise<boolean>;
+  toSafeObject(): Omit<IUser, 'password'>;
 }
 
 /**
