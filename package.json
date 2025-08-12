@@ -1,0 +1,24 @@
+{
+  "name": "todo-app-backend",
+  "version": "1.0.0",
+  "description": "Backend para aplicación de gestión de tareas (To-Do App) desarrollado con Node.js y Express",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["nodejs", "express", "mongodb", "todo", "api", "rest"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.5.0",
+    "cors": "^2.8.5",
+    "joi": "^17.9.2",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
