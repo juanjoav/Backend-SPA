@@ -1,99 +1,147 @@
-# 📱 To-Do App - Frontend (Vue 3 + TypeScript)
+# 🚀 To-Do App - Backend API (Node.js + TypeScript)
 
-Una aplicación frontend moderna para gestión de tareas desarrollada con Vue 3, Composition API, TypeScript y TailwindCSS.
+Una API REST robusta para gestión de tareas desarrollada con Node.js, Express, TypeScript y MongoDB.
 
-## 🚀 Características
+## 🏗️ Características
 
-- ✅ **Vue 3** con Composition API y `<script setup>`
-- 🛡️ **TypeScript** con tipado estricto completo
-- 🎨 **TailwindCSS** para estilos modernos y responsivos
-- 🔐 **Autenticación JWT** con guards de ruta
-- 📱 **Diseño responsivo** optimizado para móvil y desktop
-- 🔄 **Estado reactivo** con composables personalizados
-- ⚡ **Carga lazy** de componentes para mejor rendimiento
-- 🎭 **Transiciones suaves** y animaciones
-- 🚨 **Manejo de errores** con notificaciones
-- 📝 **Validación de formularios** en tiempo real
+- ✅ **Node.js + Express** con TypeScript completo
+- 🗄️ **MongoDB + Mongoose** con schemas tipados
+- 🔐 **Autenticación JWT** segura con bcrypt
+- ✅ **Validación robusta** con Joi
+- 🧪 **Testing completo** con Jest + Supertest
+- 📊 **Filtros avanzados** y consultas optimizadas
+- 🔄 **Auto-documentación** de API integrada
+- 🏥 **Health checks** y monitoreo
+- 🛡️ **CORS** y seguridad configurados
 
-## 🛠️ Tecnologías Utilizadas
+## 🛠️ Stack Tecnológico
 
-- **Framework**: Vue 3.4+ con Composition API
-- **Lenguaje**: TypeScript 5.2+
-- **Build Tool**: Vite 5.0+
-- **Estilos**: TailwindCSS 3.4+
-- **Routing**: Vue Router 4.0+
-- **HTTP Client**: Fetch API nativo
-- **Iconos**: Heroicons
-- **Linting**: ESLint + Prettier
-
-## 📋 Funcionalidades
-
-### 🔐 **Autenticación**
-- ✅ Registro de nuevos usuarios
-- ✅ Inicio de sesión
-- ✅ Protección de rutas privadas
-- ✅ Persistencia de sesión
-- ✅ Logout automático en caso de token inválido
-
-### 📝 **Gestión de Tareas**
-- ✅ **Listar tareas** con paginación y filtros
-- ✅ **Crear nueva tarea** con título, descripción, prioridad y fecha
-- ✅ **Marcar como completada** con toggle interactivo
-- ✅ **Eliminar tarea** con confirmación
-- ✅ **Editar tarea** con formulario completo
-- ✅ **Filtrar por estado**: Todas / Completadas / Pendientes
-- ✅ **Ordenamiento** por fecha, título o prioridad
-- ✅ **Estadísticas** en tiempo real
-
-### 🎨 **Interfaz de Usuario**
-- ✅ **Diseño responsivo** para todos los dispositivos
-- ✅ **Tema moderno** con esquema de colores consistente
-- ✅ **Animaciones suaves** para mejor UX
-- ✅ **Loading states** y feedback visual
-- ✅ **Notificaciones toast** para acciones
-- ✅ **Modales** para formularios y confirmaciones
-
-## 🗂️ Estructura del Proyecto
-
+```json
+{
+  "dependencies": {
+    "express": "^4.18.2",        // Framework web
+    "mongoose": "^7.5.0",        // ODM para MongoDB
+    "jsonwebtoken": "^9.0.2",    // Autenticación JWT
+    "bcryptjs": "^2.4.3",        // Hash de contraseñas
+    "joi": "^17.9.2",            // Validación de schemas
+    "cors": "^2.8.5",            // Políticas CORS
+    "dotenv": "^16.3.1"          // Variables de entorno
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2",      // Tipado estático
+    "ts-node-dev": "^2.0.0",     // Desarrollo con hot-reload
+    "jest": "^29.7.0",           // Framework de testing
+    "supertest": "^6.3.3",       // Testing HTTP
+    "@types/express": "^4.17.17" // Tipos TypeScript
+  }
+}
 ```
-frontEnd/
-├── src/
-│   ├── components/           # Componentes reutilizables
-│   │   ├── TaskItem.vue     # Componente individual de tarea
-│   │   ├── TaskList.vue     # Lista principal de tareas
-│   │   ├── TaskForm.vue     # Formulario crear/editar
-│   │   └── TaskFilters.vue  # Filtros y estadísticas
-│   ├── composables/         # Lógica reutilizable
-│   │   ├── useAuth.ts       # Autenticación
-│   │   └── useTasks.ts      # Gestión de tareas
-│   ├── services/            # Servicios API
-│   │   └── api.ts           # Cliente HTTP y endpoints
-│   ├── types/               # Definiciones TypeScript
-│   │   └── index.ts         # Interfaces y tipos
-│   ├── views/               # Páginas principales
-│   │   ├── LoginView.vue    # Página de login
-│   │   ├── RegisterView.vue # Página de registro
-│   │   └── DashboardView.vue# Dashboard principal
-│   ├── router/              # Configuración de rutas
-│   │   └── index.ts         # Vue Router setup
-│   ├── assets/              # Recursos estáticos
-│   │   └── main.css         # Estilos TailwindCSS
-│   ├── App.vue              # Componente raíz
-│   └── main.ts              # Punto de entrada
-├── dist/                    # Build de producción (generado)
-├── tailwind.config.js       # Configuración TailwindCSS
-├── postcss.config.js        # Configuración PostCSS
-├── vite.config.ts          # Configuración Vite
-├── tsconfig.json           # Configuración TypeScript
-└── package.json            # Dependencias y scripts
+
+## 📋 API Endpoints
+
+### 🔐 **Autenticación** (`/api/auth`)
+
+| Método | Endpoint | Descripción | Auth |
+|--------|----------|-------------|------|
+| `POST` | `/register` | Registrar nuevo usuario | ❌ |
+| `POST` | `/login` | Iniciar sesión | ❌ |
+| `GET` | `/profile` | Obtener perfil del usuario | ✅ |
+| `GET` | `/verify` | Verificar token JWT | ✅ |
+
+### 📝 **Tareas** (`/api/tasks`)
+
+| Método | Endpoint | Descripción | Auth |
+|--------|----------|-------------|------|
+| `GET` | `/` | Obtener todas las tareas (con filtros) | ✅ |
+| `GET` | `/stats` | Obtener estadísticas de tareas | ✅ |
+| `GET` | `/:id` | Obtener tarea por ID | ✅ |
+| `POST` | `/` | Crear nueva tarea | ✅ |
+| `PUT` | `/:id` | Actualizar tarea por ID | ✅ |
+| `DELETE` | `/:id` | Eliminar tarea por ID | ✅ |
+
+### 🔧 **Utilidades**
+
+| Método | Endpoint | Descripción | Auth |
+|--------|----------|-------------|------|
+| `GET` | `/` | Documentación automática de la API | ❌ |
+| `GET` | `/health` | Estado de salud del servidor | ❌ |
+
+## 🗄️ Modelos de Datos
+
+### **Task Schema**
+```typescript
+interface ITask {
+  title: string           // Título (requerido, max 100 chars)
+  description?: string    // Descripción (opcional, max 500 chars)
+  completed: boolean      // Estado completado (default: false)
+  priority: 'baja' | 'media' | 'alta'  // Prioridad (default: 'media')
+  dueDate?: Date          // Fecha límite (opcional)
+  createdAt: Date         // Fecha de creación (auto)
+  updatedAt: Date         // Fecha de actualización (auto)
+}
+```
+
+### **User Schema**
+```typescript
+interface IUser {
+  username: string        // Nombre único (3-30 chars, alphanumeric + _)
+  email: string           // Email válido (único)
+  password: string        // Hash bcrypt (6-128 chars original)
+  createdAt: Date         // Fecha de registro (auto)
+  updatedAt: Date         // Fecha de actualización (auto)
+}
+```
+
+## 🔍 Filtros y Consultas
+
+### **Filtros Disponibles**
+```bash
+# Por estado de completado
+GET /api/tasks?completed=true
+GET /api/tasks?completed=false
+
+# Por prioridad
+GET /api/tasks?priority=alta
+GET /api/tasks?priority=media
+GET /api/tasks?priority=baja
+
+# Ordenamiento
+GET /api/tasks?sortBy=createdAt&order=desc    # Más recientes
+GET /api/tasks?sortBy=title&order=asc         # Alfabético A-Z
+GET /api/tasks?sortBy=priority&order=desc     # Prioridad alta primero
+GET /api/tasks?sortBy=dueDate&order=asc       # Vencimiento próximo
+
+# Combinaciones
+GET /api/tasks?completed=false&priority=alta&sortBy=dueDate&order=asc
+```
+
+### **Estadísticas**
+```bash
+# Obtener métricas completas
+GET /api/tasks/stats
+
+# Respuesta ejemplo:
+{
+  "success": true,
+  "data": {
+    "total": 25,
+    "completed": 15,
+    "pending": 10,
+    "byPriority": {
+      "alta": 5,
+      "media": 12,
+      "baja": 8
+    }
+  }
+}
 ```
 
 ## 🚀 Instalación y Configuración
 
 ### **Prerrequisitos**
-- Node.js 18+ 
+- Node.js 18+
+- MongoDB 5+
 - npm o yarn
-- Backend corriendo en `http://localhost:3000`
 
 ### **1. Instalar dependencias**
 ```bash
@@ -101,195 +149,266 @@ npm install
 ```
 
 ### **2. Configurar variables de entorno**
-Crea un archivo `.env.development`:
-```env
-VITE_API_BASE_URL=http://localhost:3000/api
+Copia y configura el archivo de entorno:
+```bash
+cp config.example.env .env
 ```
 
-### **3. Ejecutar en desarrollo**
+```env
+# Configuración del servidor
+PORT=3000
+NODE_ENV=development
+
+# MongoDB
+MONGODB_URI=mongodb://admin:password123@localhost:27017/todoapp?authSource=admin
+
+# CORS
+CORS_ORIGIN=http://localhost:3000
+
+# JWT
+JWT_SECRET=mi-super-secreto-jwt-para-desarrollo
+JWT_EXPIRES_IN=7d
+```
+
+### **3. Iniciar MongoDB**
+```bash
+# Con Docker Compose (recomendado)
+docker-compose up -d
+
+# O MongoDB local
+mongod --dbpath /data/db
+```
+
+### **4. Ejecutar en desarrollo**
 ```bash
 npm run dev
 ```
 
-La aplicación estará disponible en `http://localhost:5173`
+El servidor estará disponible en `http://localhost:3000`
 
-### **4. Build para producción**
-```bash
-npm run build
-```
-
-### **5. Preview del build**
-```bash
-npm run preview
-```
-
-## 📱 Uso de la Aplicación
-
-### **1. Registro/Login**
-1. Abre la aplicación en tu navegador
-2. Si no tienes cuenta, ve a "Regístrate aquí"
-3. Completa el formulario con usuario, email y contraseña
-4. O inicia sesión con credenciales existentes
-
-### **2. Gestión de Tareas**
-1. **Crear tarea**: Clic en "Nueva Tarea"
-2. **Completar**: Clic en el círculo verde
-3. **Editar**: Clic en el ícono de lápiz
-4. **Eliminar**: Clic en el ícono de basura
-5. **Filtrar**: Usa los botones "Todas", "Completadas", "Pendientes"
-
-### **3. Características Avanzadas**
-- **Prioridades**: Alta (🔴), Media (🟡), Baja (🟢)
-- **Fechas límite**: Opcional con validación
-- **Ordenamiento**: Por fecha, título o prioridad
-- **Estadísticas**: Progreso y contadores en tiempo real
-
-## 🎯 Composables Personalizados
-
-### **useAuth()**
-```typescript
-const { 
-  isAuthenticated, 
-  user, 
-  login, 
-  register, 
-  logout 
-} = useAuth()
-```
-
-### **useTasks()**
-```typescript
-const { 
-  tasks, 
-  createTask, 
-  updateTask, 
-  deleteTask, 
-  fetchTasks 
-} = useTasks()
-```
-
-## 🧪 Comandos Disponibles
-
+### **5. Comandos disponibles**
 ```bash
 # Desarrollo
-npm run dev          # Servidor de desarrollo
-npm run build        # Build de producción
-npm run preview      # Preview del build
+npm run dev          # Servidor con hot-reload
+npm run build        # Compilar TypeScript
+npm run start        # Servidor de producción
 
-# Calidad de código
-npm run lint         # Linting con ESLint
-npm run format       # Formateo con Prettier
-npm run type-check   # Verificación de tipos TS
+# Testing
+npm run test         # Ejecutar tests
+npm run test:watch   # Tests en modo watch
+npm run test:coverage # Cobertura de tests
+
+# Linting
+npm run lint         # Verificar código
+npm run lint:fix     # Corregir automáticamente
 ```
 
-## 🎨 Personalización de Estilos
+## 🧪 Testing
 
-### **Colores del tema** (tailwind.config.js):
-```javascript
-colors: {
-  primary: {
-    50: '#eff6ff',
-    500: '#3b82f6',
-    600: '#2563eb',
-    // ...
+### **Estrategia de Testing**
+- ✅ **Unit Tests**: Modelos y controladores
+- ✅ **Integration Tests**: Rutas de API
+- ✅ **Validation Tests**: Schemas de Joi
+- ✅ **Auth Tests**: JWT y middleware
+
+### **Ejecutar Tests**
+```bash
+# Tests básicos
+npm test
+
+# Tests con watch
+npm run test:watch
+
+# Cobertura completa
+npm run test:coverage
+```
+
+### **Estructura de Tests**
+```
+src/tests/
+├── models/
+│   ├── Task.test.ts         # Tests del modelo Task
+│   └── User.test.ts         # Tests del modelo User
+├── controllers/
+│   ├── authController.test.ts    # Tests de autenticación
+│   └── taskController.test.ts    # Tests de tareas
+└── setup.ts                 # Configuración de tests
+```
+
+## 🔐 Autenticación y Seguridad
+
+### **JWT Implementation**
+```typescript
+// Generar token
+const token = jwt.sign(
+  { userId: user._id, username: user.username },
+  JWT_SECRET,
+  { expiresIn: JWT_EXPIRES_IN }
+)
+
+// Middleware de autenticación
+export const authenticateToken = (req, res, next) => {
+  const token = req.headers.authorization?.substring(7) // "Bearer TOKEN"
+  
+  if (!token) {
+    return res.status(401).json({ error: 'Token requerido' })
   }
+  
+  jwt.verify(token, JWT_SECRET, (error, decoded) => {
+    if (error) return res.status(401).json({ error: 'Token inválido' })
+    req.user = decoded
+    next()
+  })
 }
 ```
 
-### **Componentes CSS personalizados** (main.css):
-```css
-.btn-primary { @apply bg-primary-600 hover:bg-primary-700 ... }
-.card { @apply bg-white rounded-xl shadow-lg ... }
-.input-field { @apply w-full px-3 py-2 border ... }
-```
+### **Seguridad Implementada**
+- ✅ **Password Hashing**: bcrypt con salt
+- ✅ **JWT Tokens**: Autenticación stateless
+- ✅ **Input Validation**: Schemas Joi estrictos
+- ✅ **CORS Protection**: Orígenes configurables
+- ✅ **Error Handling**: No exposición de datos sensibles
 
-## 📊 Métricas y Rendimiento
+## 📊 Monitoreo y Logs
 
-- ✅ **Bundle size**: ~58KB gzipped
-- ✅ **First Load**: < 1s
-- ✅ **Lazy loading**: Rutas cargadas bajo demanda
-- ✅ **Tree shaking**: Código no usado eliminado
-- ✅ **PWA Ready**: Configurable para offline
-
-## 🔧 Configuración Avanzada
-
-### **Variables de entorno disponibles:**
-```env
-VITE_API_BASE_URL=http://localhost:3000/api  # URL del backend
-```
-
-### **Configuración de desarrollo:**
-- **Hot reload**: Cambios instantáneos
-- **TypeScript**: Verificación en tiempo real
-- **ESLint**: Linting automático
-- **Source maps**: Debugging mejorado
-
-## 🎯 Cobertura de Requisitos
-
-### ✅ **Vue 3 con Composition API**
-- Uso completo de `<script setup>`
-- Composables personalizados
-- Reactividad optimizada
-
-### ✅ **TypeScript**
-- Tipado estricto en toda la aplicación
-- Interfaces bien definidas
-- Type checking en build
-
-### ✅ **TailwindCSS**
-- Diseño completamente responsivo
-- Sistema de diseño consistente
-- Utility classes optimizadas
-
-### ✅ **Separación de Componentes**
-- Componentes modulares y reutilizables
-- Lógica separada en composables
-- Single Responsibility Principle
-
-### ✅ **Sin Estado Global Externo**
-- Estado manejado con `ref` y `reactive`
-- Composables para compartir estado
-- No uso de Pinia/Vuex
-
-### ✅ **Sin UI Kits**
-- Componentes 100% personalizados
-- TailwindCSS para estilos
-- Iconos con Heroicons
-
-## 🚀 Despliegue
-
-### **Build optimizado:**
+### **Health Check**
 ```bash
+# Verificar estado del servidor
+curl http://localhost:3000/health
+
+# Respuesta:
+{
+  "success": true,
+  "timestamp": "2024-01-15T10:30:00.000Z",
+  "uptime": 3600,
+  "database": "connected"
+}
+```
+
+### **Auto-documentación**
+```bash
+# Información completa de la API
+curl http://localhost:3000/
+
+# Incluye:
+# - Lista de endpoints disponibles
+# - Versión de la API
+# - Características implementadas
+# - Links a documentación
+```
+
+## 🧪 Testing con cURL
+
+Para testing manual completo, consulta:
+- **`curl-tests.md`**: 400+ líneas de comandos de prueba
+- Incluye todos los endpoints
+- Casos de error y validación
+- Scripts automatizados
+
+## 🗄️ Base de Datos
+
+### **Conexión MongoDB**
+```typescript
+// Configuración optimizada
+mongoose.connect(MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+
+// Índices para performance
+taskSchema.index({ completed: 1 })
+taskSchema.index({ priority: 1 })
+taskSchema.index({ dueDate: 1 })
+taskSchema.index({ createdAt: -1 })
+```
+
+### **Middleware Mongoose**
+```typescript
+// Auto-actualización de timestamps
+taskSchema.pre('save', function(next) {
+  this.updatedAt = new Date()
+  next()
+})
+
+taskSchema.pre('findOneAndUpdate', function(next) {
+  this.set({ updatedAt: new Date() })
+  next()
+})
+```
+
+## 🚀 Deployment
+
+### **Build de Producción**
+```bash
+# Compilar TypeScript
 npm run build
+
 # Archivos generados en /dist
+npm start
 ```
 
-### **Servidor estático:**
-```bash
-# Con serve
-npx serve dist
-
-# Con http-server
-npx http-server dist
+### **Variables de Entorno - Producción**
+```env
+NODE_ENV=production
+PORT=3000
+MONGODB_URI=mongodb+srv://user:pass@cluster.mongodb.net/todoapp
+CORS_ORIGIN=https://mi-app.com
+JWT_SECRET=super-secreto-produccion-256-bits
+JWT_EXPIRES_IN=7d
 ```
 
-### **Docker (opcional):**
+### **Docker Support**
 ```dockerfile
-FROM nginx:alpine
-COPY dist/ /usr/share/nginx/html/
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+FROM node:18-alpine
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+
+COPY dist/ ./dist/
+EXPOSE 3000
+
+CMD ["npm", "start"]
 ```
 
-## 🎉 Resultado Final
+## ⚡ Performance
 
-Una aplicación frontend moderna y completa que:
+### **Optimizaciones Implementadas**
+- ✅ **Índices MongoDB**: Queries optimizados
+- ✅ **Async/Await**: Manejo eficiente de promesas
+- ✅ **Error Handling**: Middleware centralizado
+- ✅ **Validation**: Joi con early exit
+- ✅ **Lean Queries**: Objetos planos cuando es posible
 
-- ✅ Cumple **100%** con los requisitos técnicos
-- ✅ Proporciona una **UX excepcional**
-- ✅ Código **limpio y mantenible**
-- ✅ **Totalmente tipado** con TypeScript
-- ✅ **Responsive** en todos los dispositivos
-- ✅ **Optimizada** para producción
+## 📈 Escalabilidad
 
-¡La aplicación está lista para usar! 🎊
+### **Preparado para:**
+- **Horizontal Scaling**: Múltiples instancias
+- **Load Balancing**: Sin estado en memoria
+- **Microservices**: Servicios separables
+- **Caching**: Redis para sesiones frecuentes
+- **Database Sharding**: Partición por usuario
+
+## ✅ Estado del Proyecto
+
+- ✅ **API completa**: Todos los endpoints funcionales
+- ✅ **Autenticación**: JWT seguro implementado
+- ✅ **Validación**: Schemas robustos
+- ✅ **Testing**: Cobertura completa
+- ✅ **Documentación**: Auto-generada y manual
+- ✅ **Production Ready**: Configuración optimizada
+
+---
+
+## 🎯 Resultado Final
+
+Una API REST completa y robusta que proporciona:
+
+1. **🔐 Autenticación segura** con JWT y bcrypt
+2. **📝 CRUD completo** de tareas con filtros avanzados  
+3. **✅ Validación robusta** en todos los endpoints
+4. **🧪 Testing comprehensivo** con alta cobertura
+5. **📊 Monitoreo integrado** con health checks
+6. **🚀 Production ready** con configuración optimizada
+
+¡El backend está completamente funcional y listo para producción! 🎉
