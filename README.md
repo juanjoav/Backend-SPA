@@ -1,36 +1,53 @@
-# 📝 To-Do App - Backend API
+# 📝 To-Do App - Backend API (TypeScript)
 
-Una aplicación web completa de gestión de tareas desarrollada con Node.js, Express y MongoDB.
+Una aplicación web completa de gestión de tareas desarrollada con Node.js, Express, TypeScript y MongoDB. Incluye autenticación JWT, validación robusta y testing completo.
 
 ## 🚀 Características
 
-- ✅ API REST completa con endpoints CRUD
-- 🔒 Validación robusta de datos con Joi
-- 🗄️ Base de datos MongoDB con Mongoose
-- 🌐 CORS habilitado para integración frontend
-- 🐳 Docker Compose para despliegue fácil
-- 📊 Interfaz de administración con Mongo Express
+- ✅ **API REST completa** con endpoints CRUD
+- 🔐 **Autenticación JWT** con registro y login
+- 🛡️ **TypeScript** con tipado completo y estricto
+- 🔒 **Validación robusta** de datos con Joi
+- 🗄️ **Base de datos MongoDB** con Mongoose
+- 🌐 **CORS** habilitado para integración frontend
+- 🧪 **Testing completo** con Jest y Supertest
+- 📊 **Estadísticas de tareas** y filtros avanzados
+- 🐳 **Docker Compose** para despliegue fácil
+- 📝 **Documentación completa** con JSDoc/TSDoc
+- 🔍 **Linting** con ESLint y reglas TypeScript
 
 ## 🛠️ Tecnologías Utilizadas
 
-- **Backend**: Node.js + Express.js
+- **Backend**: Node.js + Express.js + TypeScript
 - **Base de datos**: MongoDB + Mongoose
-- **Validación**: Joi
-- **CORS**: cors middleware
+- **Autenticación**: JWT + bcryptjs
+- **Validación**: Joi con schemas tipados
+- **Testing**: Jest + Supertest + MongoDB Memory Server
+- **Linting**: ESLint + TypeScript ESLint
 - **Contenedores**: Docker + Docker Compose
 - **Variables de entorno**: dotenv
 
 ## 📋 Endpoints API
 
-### Tareas (Tasks)
+### 🔐 Autenticación
 
-| Método | Endpoint | Descripción |
-|--------|----------|-------------|
-| `GET` | `/api/tasks` | Obtener todas las tareas |
-| `GET` | `/api/tasks/:id` | Obtener una tarea por ID |
-| `POST` | `/api/tasks` | Crear nueva tarea |
-| `PUT` | `/api/tasks/:id` | Actualizar tarea por ID |
-| `DELETE` | `/api/tasks/:id` | Eliminar tarea por ID |
+| Método | Endpoint | Descripción | Acceso |
+|--------|----------|-------------|---------|
+| `POST` | `/api/auth/register` | Registrar nuevo usuario | Público |
+| `POST` | `/api/auth/login` | Iniciar sesión | Público |
+| `GET` | `/api/auth/profile` | Obtener perfil del usuario | Privado |
+| `GET` | `/api/auth/verify` | Verificar token JWT | Privado |
+
+### 📋 Tareas (Tasks)
+
+| Método | Endpoint | Descripción | Acceso |
+|--------|----------|-------------|---------|
+| `GET` | `/api/tasks` | Obtener todas las tareas | Privado |
+| `GET` | `/api/tasks/stats` | Obtener estadísticas | Privado |
+| `GET` | `/api/tasks/:id` | Obtener una tarea por ID | Privado |
+| `POST` | `/api/tasks` | Crear nueva tarea | Privado |
+| `PUT` | `/api/tasks/:id` | Actualizar tarea por ID | Privado |
+| `DELETE` | `/api/tasks/:id` | Eliminar tarea por ID | Privado |
 
 ### Parámetros de Query (GET /api/tasks)
 
@@ -89,6 +106,10 @@ MONGODB_URI=mongodb://admin:password123@localhost:27017/todoapp?authSource=admin
 
 # Configuración de CORS
 CORS_ORIGIN=http://localhost:3000
+
+# Configuración JWT
+JWT_SECRET=tu-super-secreto-para-jwt-en-produccion-cambiar
+JWT_EXPIRES_IN=7d
 ```
 
 ### 4. Iniciar MongoDB con Docker
@@ -97,14 +118,15 @@ CORS_ORIGIN=http://localhost:3000
 docker-compose up -d
 ```
 
-Este comando iniciará:
-- MongoDB en el puerto 27017
-- Mongo Express (interfaz web) en el puerto 8081
+Este comando iniciará MongoDB en el puerto 27017.
 
-### 5. Iniciar el servidor
+### 5. Compilar y ejecutar el servidor
 
 ```bash
-# Modo desarrollo (con nodemon)
+# Compilar TypeScript
+npm run build
+
+# Modo desarrollo (con hot reload)
 npm run dev
 
 # Modo producción
@@ -191,21 +213,57 @@ curl -X PUT http://localhost:3000/api/tasks/TASK_ID \\
 curl -X DELETE http://localhost:3000/api/tasks/TASK_ID
 ```
 
+## 🧪 Testing
+
+```bash
+# Ejecutar todos los tests
+npm test
+
+# Ejecutar tests en modo watch
+npm run test:watch
+
+# Generar reporte de cobertura
+npm run test:coverage
+
+# Linting del código
+npm run lint
+
+# Corregir errores de linting automáticamente
+npm run lint:fix
+```
+
 ## 🔧 Estructura del Proyecto
 
 ```
 Backend/
 ├── src/
-│   ├── controllers/
-│   │   └── taskController.js
-│   ├── models/
-│   │   └── Task.js
-│   ├── routes/
-│   │   └── taskRoutes.js
-│   ├── validators/
-│   │   └── taskValidator.js
-│   └── server.js
-├── docker-compose.yml
+│   ├── controllers/           # Lógica de negocio
+│   │   ├── taskController.ts
+│   │   └── authController.ts
+│   ├── models/               # Modelos de MongoDB
+│   │   ├── Task.ts
+│   │   └── User.ts
+│   ├── routes/               # Definición de rutas
+│   │   ├── taskRoutes.ts
+│   │   └── authRoutes.ts
+│   ├── validators/           # Esquemas de validación
+│   │   ├── taskValidator.ts
+│   │   └── userValidator.ts
+│   ├── middleware/           # Middleware personalizado
+│   │   └── auth.ts
+│   ├── types/               # Tipos e interfaces TypeScript
+│   │   └── index.ts
+│   ├── tests/               # Tests unitarios e integración
+│   │   ├── setup.ts
+│   │   ├── models/
+│   │   └── controllers/
+│   └── server.ts            # Punto de entrada principal
+├── dist/                    # Código compilado (generado)
+├── coverage/                # Reportes de cobertura (generado)
+├── docker-compose.yml       # Configuración Docker
+├── tsconfig.json           # Configuración TypeScript
+├── jest.config.js          # Configuración Jest
+├── .eslintrc.js           # Configuración ESLint
 ├── package.json
 ├── .gitignore
 └── README.md
@@ -240,12 +298,47 @@ La API devuelve respuestas consistentes para todos los errores:
 
 ## 📈 Estado del Proyecto
 
-- ✅ API REST completa implementada
-- ✅ Validación de datos
-- ✅ Base de datos MongoDB configurada
-- ✅ CORS habilitado
-- ✅ Docker Compose funcional
-- ✅ Documentación completa
+- ✅ **TypeScript** - Migración completa con tipado estricto
+- ✅ **API REST** - Endpoints completos implementados
+- ✅ **Autenticación JWT** - Registro, login y protección de rutas
+- ✅ **Validación** - Schemas robustos con Joi y TypeScript
+- ✅ **Base de datos** - MongoDB configurada con Mongoose
+- ✅ **Testing** - Tests unitarios e integración completos
+- ✅ **Linting** - ESLint con reglas TypeScript
+- ✅ **CORS** - Configurado para frontend
+- ✅ **Docker** - Compose funcional para MongoDB
+- ✅ **Documentación** - Completa con ejemplos y tipos
+
+## 🎯 Cobertura de Requisitos
+
+### ✅ TypeScript
+- **Tipado correcto en backend**: Interfaces, tipos y enums completos
+- **Configuración estricta**: tsconfig.json con reglas estrictas
+- **Validación en tiempo de compilación**: Sin errores TypeScript
+
+### ✅ Código Limpio
+- **Nombres descriptivos**: Variables, funciones y clases bien nombradas
+- **Organización**: Estructura modular y separación de responsabilidades
+- **Comentarios JSDoc/TSDoc**: Documentación completa en código
+- **Linting**: ESLint configurado con reglas TypeScript
+
+### ✅ API REST
+- **Endpoints estructurados**: Rutas organizadas y RESTful
+- **Control de errores**: Manejo robusto con tipos específicos
+- **Validaciones**: Joi con schemas tipados
+- **Middleware**: Autenticación, validación y manejo de errores
+
+### ✅ Persistencia
+- **MongoDB**: Base de datos configurada
+- **Mongoose**: ODM con schemas tipados
+- **Queries**: Operaciones CRUD optimizadas
+- **Índices**: Para mejorar rendimiento
+
+### ✅ Extra
+- **Autenticación JWT**: Sistema completo de usuarios
+- **Tests**: Unitarios e integración con Jest
+- **Cobertura**: Tests para modelos y controladores
+- **CI/CD Ready**: Configuración para pipelines
 
 ## 🤝 Contribuir
 

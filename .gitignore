@@ -40,6 +40,9 @@ bower_components
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
 
+# Código compilado TypeScript
+dist/
+
 # Dependency directories
 jspm_packages/
 
